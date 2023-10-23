@@ -9,7 +9,7 @@ from . import model
 from . import civitai
 from . import msg_handler
 from . import downloader
-
+import subprocess
 
 
 # get civitai's model url and open it in browser
@@ -270,13 +270,12 @@ def remove_model_by_path(msg):
     
     model_type = result["model_type"]
     search_term = result["search_term"]
-
+    
     model_path = model.get_model_path_by_search_term(model_type, search_term)
     if not model_path:
         output = f"Fail to get model for {model_type} {search_term}"
         util.printD(output)
         return output
-
 
     if not os.path.isfile(model_path):
         output = f"Model {model_type} {search_term} does not exist, no need to remove"
@@ -317,6 +316,49 @@ def remove_model_by_path(msg):
 
     util.printD("End remove_model_by_path")
     return output
+
+def open_filepath(msg):
+    util.printD("Start open_filepath")
+    util.printD(msg)
+
+    result = msg_handler.parse_js_msg(msg)
+    if not result:
+        util.printD("Parsing js ms failed")
+        return
+    
+    model_type = result["model_type"]
+    search_term = result["search_term"]
+    
+    print("search_term: ", search_term)
+
+    #civitai.open_filepath(model_type, search_term)
+    
+    util.printD(f"Open filepath of {search_term} in {model_type}")
+    if model_type not in model.folders.keys():
+        util.printD("unknow model type: " + model_type)
+        return
+    
+    model_path = model.get_model_path_by_search_term(model_type, search_term)
+    if not model_path:
+        output = f"Fail to get model for {model_type} {search_term}"
+        util.printD(output)
+        return output
+
+    base, ext = os.path.splitext(model_path)
+    model_base = base
+    if base[:1] == "/":
+        model_base = base[1:]
+
+    base_model_folder = model.folders[model_type]
+    model_filepath = os.path.join(base_model_folder, model_base + ext).replace("/", "\\")
+
+    if os.path.exists(model_filepath):
+        util.printD(f"opned model_filepath: {model_filepath}")
+        subprocess.Popen(r'explorer /select,%s' % model_filepath)
+    else:
+        util.printD(f"model_filepath is not exist: {model_filepath}")
+    
+    return [""]
 
 
 

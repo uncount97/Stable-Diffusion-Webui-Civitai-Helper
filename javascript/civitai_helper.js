@@ -354,23 +354,69 @@ async function remove_card(event, model_type, search_term){
     // alert result
     alert(result);
 
-    if (result=="Done"){
-        console.log("refresh card list");
-        //refresh card list
-        let active_tab = getActiveTabType();
-        console.log("get active tab id: " + active_tab);
-        if (active_tab){
-            let refresh_btn_id = active_tab + "_extra_refresh";
-            let refresh_btn = gradioApp().getElementById(refresh_btn_id);
-            if (refresh_btn){
-                console.log("click button: "+refresh_btn_id);
-                refresh_btn.click();
-            }
-        }
-    }
+    // 삭제 후 리프레쉬 하는 코드
+    // if (result=="Done"){
+    //     console.log("refresh card list");
+    //     //refresh card list
+    //     let active_tab = getActiveTabType();
+    //     console.log("get active tab id: " + active_tab);
+    //     if (active_tab){
+    //         let refresh_btn_id = active_tab + "_extra_refresh";
+    //         let refresh_btn = gradioApp().getElementById(refresh_btn_id);
+    //         if (refresh_btn){
+    //             console.log("click button: "+refresh_btn_id);
+    //             refresh_btn.click();
+    //         }
+    //     }
+    // }
     
     console.log("end remove_card");
 
+
+}
+
+function open_filepath(event, model_type, search_term) {
+
+    if (model_type == "ckp") {
+        console.log("this is ckp model")
+        const lastIndex = search_term.lastIndexOf(" ");
+
+        if (lastIndex !== -1) {
+            search_term = search_term.slice(0, lastIndex);
+        }
+
+        console.log("search_term: " + search_term);
+    }
+
+    console.log("start open_filepath");
+
+    //get hidden components of extension 
+    let js_open_filepath_btn = gradioApp().getElementById("ch_js_open_filepath_btn");
+    if (!js_open_filepath_btn) {
+        return
+    }
+
+    //msg to python side
+    let msg = {
+        "action": "",
+        "model_type": "",
+        "search_term": "",
+    }
+
+    msg["action"] = "open_filepath";
+    msg["model_type"] = model_type;
+    msg["search_term"] = search_term;
+
+    // fill to msg box
+    send_ch_py_msg(msg)
+
+    //click hidden button
+    js_open_filepath_btn.click();
+
+    console.log("end open_filepath");
+
+    event.stopPropagation()
+    event.preventDefault()
 
 }
 
@@ -635,11 +681,20 @@ onUiLoaded(() => {
                     remove_card_node.title = "Remove this model";
                     remove_card_node.setAttribute("onclick","remove_card(event, '"+model_type+"', '"+search_term+"')");
 
+                    let open_filepath_node = document.createElement("a");
+                    open_filepath_node.href = "#";
+                    open_filepath_node.innerHTML = "📁";
+                    open_filepath_node.className = "card-button";
+
+                    open_filepath_node.title = "Open model path in File Explorer";
+                    open_filepath_node.setAttribute("onclick", "open_filepath(event, '" + model_type + "', '" + search_term + "')");
+
                     //add to card
                     button_row.appendChild(open_url_node);
                     button_row.appendChild(add_trigger_words_node);
                     button_row.appendChild(use_preview_prompt_node);
                     button_row.appendChild(remove_card_node);
+                    button_row.appendChild(open_filepath_node);
 
 
 

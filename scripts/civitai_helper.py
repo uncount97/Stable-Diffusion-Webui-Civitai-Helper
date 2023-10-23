@@ -201,6 +201,7 @@ def on_ui_tabs():
         js_use_preview_prompt_btn = gr.Button(value="Use Prompt from Preview Image", visible=False, elem_id="ch_js_use_preview_prompt_btn")
         js_dl_model_new_version_btn = gr.Button(value="Download Model's new version", visible=False, elem_id="ch_js_dl_model_new_version_btn")
         js_remove_card_btn = gr.Button(value="Remove Card", visible=False, elem_id="ch_js_remove_card_btn")
+        js_open_filepath_btn = gr.Button(value="Open Filepath", visible=False, elem_id="ch_js_open_filepath_btn")
 
         # ====events====
         # Scan Models for Civitai
@@ -225,6 +226,7 @@ def on_ui_tabs():
         js_use_preview_prompt_btn.click(js_action_civitai.use_preview_image_prompt, inputs=[js_msg_txtbox], outputs=[txt2img_prompt, txt2img_neg_prompt, img2img_prompt, img2img_neg_prompt])
         js_dl_model_new_version_btn.click(dl_model_new_version, inputs=[js_msg_txtbox], outputs=dl_log_md)
         js_remove_card_btn.click(js_action_civitai.remove_model_by_path, inputs=[js_msg_txtbox], outputs=py_msg_txtbox)
+        js_open_filepath_btn.click(js_action_civitai.open_filepath, inputs=[js_msg_txtbox], outputs=[py_msg_txtbox])
 
     # the third parameter is the element id on html, with a "tab_" as prefix
     return (civitai_helper , "Civitai Helper", "civitai_helper"),
