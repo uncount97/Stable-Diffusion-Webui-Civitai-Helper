@@ -345,14 +345,13 @@ async function remove_card(event, model_type, search_term){
     console.log(new_py_msg);
 
     //check msg
-    let result = "Done";
-    //check msg
-    if (new_py_msg) {
-        result = new_py_msg;
-    }
+    // let result = "Done";
+    // if (new_py_msg) {
+    //     result = new_py_msg;
+    // }
 
     // alert result
-    alert(result);
+    // alert(result);
 
     // 삭제 후 리프레쉬 하는 코드
     // if (result=="Done"){
