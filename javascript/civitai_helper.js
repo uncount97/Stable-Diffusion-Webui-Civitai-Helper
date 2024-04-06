@@ -402,36 +402,36 @@ async function remove_card(event, model_type, search_term){
     // alert result
     alert(result);
 
-    if (result=="Done"){
-        console.log("refresh card list");
-        //refresh card list
-        let active_tab = getActiveTabType();
-        console.log("get active tab id: " + active_tab);
-        if (active_tab){
-            let refresh_btn_id = "";
-            let refresh_btn = null;
+    // if (result=="Done"){
+    //     console.log("refresh card list");
+    //     //refresh card list
+    //     let active_tab = getActiveTabType();
+    //     console.log("get active tab id: " + active_tab);
+    //     if (active_tab){
+    //         let refresh_btn_id = "";
+    //         let refresh_btn = null;
 
-            //check sd version
-            let sd_version = ch_sd_version();
-            console.log(`sd version is: ${sd_version}`);
-            if (sd_version >= "1.8.0") {
-                let js_model_type = convertModelTypeFromPyToJS(model_type);
-                if (!js_model_type){return;}
+    //         //check sd version
+    //         let sd_version = ch_sd_version();
+    //         console.log(`sd version is: ${sd_version}`);
+    //         if (sd_version >= "1.8.0") {
+    //             let js_model_type = convertModelTypeFromPyToJS(model_type);
+    //             if (!js_model_type){return;}
 
-                refresh_btn_id = active_tab + "_" + js_model_type + "_extra_refresh";
-                refresh_btn = gradioApp().getElementById(refresh_btn_id);
-            } else {
-                refresh_btn_id = active_tab + "_extra_refresh";
-                refresh_btn = gradioApp().getElementById(refresh_btn_id);
-            }
+    //             refresh_btn_id = active_tab + "_" + js_model_type + "_extra_refresh";
+    //             refresh_btn = gradioApp().getElementById(refresh_btn_id);
+    //         } else {
+    //             refresh_btn_id = active_tab + "_extra_refresh";
+    //             refresh_btn = gradioApp().getElementById(refresh_btn_id);
+    //         }
 
-            if (refresh_btn){
-                console.log("click button: "+refresh_btn_id);
-                refresh_btn.click();
-            }
+    //         if (refresh_btn){
+    //             console.log("click button: "+refresh_btn_id);
+    //             refresh_btn.click();
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
     console.log("end remove_card");
 
