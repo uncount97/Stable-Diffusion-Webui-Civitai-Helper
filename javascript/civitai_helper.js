@@ -400,7 +400,7 @@ async function remove_card(event, model_type, search_term){
     // }
 
     // alert result
-    // alert(result);
+    alert(result);
 
     // if (result=="Done"){
     //     console.log("refresh card list");
@@ -1204,7 +1204,6 @@ onUiLoaded(() => {
                     button_row.appendChild(add_trigger_words_node);
                     button_row.appendChild(use_preview_prompt_node);
                     button_row.appendChild(remove_card_node);
-                    button_row.appendChild(open_filepath_node);
 
 
 
