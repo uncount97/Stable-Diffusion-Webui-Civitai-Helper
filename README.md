@@ -10,8 +10,11 @@ check here for Civitai Helper 2's update:
 # Notice
 **This extension request latest SD webui v1.6.x, update it before using this extension. And also re-lanuch SD webui after installing(not just reload UI). If you have an issue, check console log window's detail and read [common issue](#common-issue) part**   
 
-**You can also try following fork of this project, which keeps updating when I'm busy on other projects.**  
+**You can also try following forks of this project, which is updating when I'm busy on other projects.**  
 [https://github.com/zixaphir/Stable-Diffusion-Webui-Civitai-Helper](https://github.com/zixaphir/Stable-Diffusion-Webui-Civitai-Helper)  
+or   
+[https://github.com/blue-pen5805/Stable-Diffusion-Webui-Civitai-Helper](https://github.com/blue-pen5805/Stable-Diffusion-Webui-Civitai-Helper)
+
 
 **Also, invokeAI 3.x and ComfyUI are wonderful choices for SD. Try them.**  
 
@@ -125,9 +128,39 @@ After clicking button, extension will download that civitai model's info and pre
 ## Settings
 Now all settings are moved into Setting tab->civitai helper section. 
 
+### Proxy
 For some sock5 proxy, need to be used as "socks5h://127.0.0.1:port".  
 
 ![](img/other_setting.jpg)
+
+### Civitai API Key
+You need to login civitai to download some models. To do this with Civitai API, you need to create an API Key in your account settings on Civitai's website.
+
+zixaphir created a detailed tutorial for this: [wiki](https://github.com/zixaphir/Stable-Diffusion-Webui-Civitai-Helper/wiki/Civitai-API-Key).
+
+Here is a simple tutorial:
+* Login civitai.com
+* go to [your account's setting page](https://civitai.com/user/account)
+* At the bottom of that page, find the "API Keys" section.
+* Click "Add API Key" button, give a name.
+* Copy the api key string, paste to this extension's setting page -> Civitai API Key section.
+* Save setting and Reload SD webui
+
+### Content Setting of Civitai
+On your civitai account's setting page, there are sections for "Content Controls" and "Content Moderation".  
+
+If you hide some content types there, then you won't be able to get those models with this extension.  
+
+To get all kinds of models, you need to 
+
+* Set your Civitai API Key like above.
+
+* And turn on all content types on civitai's account setting like following:  
+
+![](img/civitai_content_control_01.jpg)  
+
+![](img/civitai_content_control_02.jpg)  
+
 
 
 ## Preview Image
@@ -211,7 +244,23 @@ Since v1.5.5, we've already optimized the SHA256 function to the top. So the onl
 
 
 
-# Change Log
+# Change Log3
+## v1.10.2
+* Bring back this addon's green refresh button to SD webui v1.8.x
+
+## v1.10.1
+* Handle model path cases for linux
+
+## v1.10.0
+* Support SD webui v1.8.x
+* With SD webui v1.8.x, this extension's refresh function is added to Official Extra Network's refresh button. There is no need another green fresh button anymore.
+
+## v1.9.1
+* Ignore video preview from civitai
+
+## v1.9.0
+* support civitai API key for downloading. Check document for detail
+
 ## v1.8.3
 * fix a bug of removing model when model name has space in it.
 
